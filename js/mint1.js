@@ -7,14 +7,14 @@ if (typeof window.ethereum !== 'undefined') {
     .then(async function (accounts) {
       // Check if the current network is Energi
       const networkId = await ethereum.request({ method: 'net_version' });
-      if (networkId === '1') {
+      if (networkId === '49797') {
         // The user is connected to the Energi network
         // You can proceed with minting here
 
         // Construct and sign the minting transaction
         const mintTx = {
           from: accounts[0], // User's Ethereum address
-          to: 'YOUR_CONTRACT_ADDRESS', // Your contract address
+          to: '0x0b21b455850dfAE1577A605Efb5F61E093bC8B61', // Your contract address
           data: 'YOUR_MINT_FUNCTION_DATA', // Data for the minting function
         };
 

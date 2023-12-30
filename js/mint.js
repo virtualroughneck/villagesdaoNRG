@@ -7,7 +7,7 @@ if (typeof window.ethereum !== 'undefined') {
     .then(async function (accounts) {
       // Check if the current network is Energi
       const networkId = await ethereum.request({ method: 'net_version' });
-      if (networkId === '39797') {
+      if (networkId === '49797') {
         // The user is connected to the Energi network
         // You can proceed with minting here
 

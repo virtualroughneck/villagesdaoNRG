@@ -1,0 +1,80 @@
+body {
+    background-color: #0f101c;
+    color: #fff;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+img {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+    margin-top: 20px;
+}
+
+.content {
+    text-align: left;
+    max-width: 600px;
+    margin: 20px 40px;
+}
+
+.italic {
+    font-style: italic;
+}
+
+/* Container for image and table */
+.image-table-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* Align items to the left */
+    margin-top: 20px; /* Adjust the margin-top value as needed */
+}
+
+/* Added gap between image and table */
+.image-table-container img {
+    margin-right: 20px; /* Adjust the margin-right value for the desired gap */
+}
+
+/* Added table styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #1a1c2a; /* Lighter background color for the table */
+    border-radius: 8px; /* Rounded border */
+    overflow: hidden; /* Hide overflowing border radius */
+}
+
+table, th, td {
+    border: 1px solid #3f4d6b; /* Border color */
+}
+
+th, td {
+    padding: 10px;
+    text-align: center;
+}
+
+th {
+    background-color: #2b3143; /* Darker background color for the table header */
+    color: #fff;
+}
+
+/* Button styling */
+.mint-button {
+    display: inline-block;
+    padding: 15px 30px;
+    background-color: limegreen;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.mint-button:hover {
+    background-color: darkgreen;
+}
