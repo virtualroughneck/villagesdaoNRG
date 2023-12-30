@@ -71,6 +71,8 @@ async function mintNFT() {
 
       // You can display a message instructing the user to install MetaMask
     }
+  } catch (error) {
+      console.error('Error:', error);
   }
 }
 
