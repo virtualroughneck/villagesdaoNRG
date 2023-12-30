@@ -8,9 +8,14 @@ async function mintNFT() {
 
             if (networkId === '49797') {
                 const contractAddress = '0x0b21b455850dfAE1577A605Efb5F61E093bC8B61';
+                const gasLimit = '2000000';
+                const gasPrice = '20000000000'; // 20 Gwei in Wei
+
                 const mintTx = {
                     from: accounts[0],
                     to: contractAddress,
+                    gas: gasLimit,
+                    gasPrice: gasPrice,
                 };
 
                 try {
@@ -48,5 +53,3 @@ async function initMinting() {
         console.error('Error:', error);
     }
 }
-
-// Do not call the asynchronous function here
