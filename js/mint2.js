@@ -8,8 +8,8 @@ async function mintNFT() {
 
             if (networkId === '49797') {
                 const contractAddress = '0x0b21b455850dfAE1577A605Efb5F61E093bC8B61';
-                const gasLimit = '2000000';
-                const gasPrice = '20000000000'; // 20 Gwei in Wei
+                const gasLimit = 50000;
+                const gasPrice = 20000000000; // 20 Gwei in Wei
 
                 const mintTx = {
                     from: accounts[0],
