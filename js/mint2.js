@@ -3,7 +3,9 @@ async function initMinting() {
     try {
         // Check if ethereum is available globally
         if (typeof ethereum !== 'undefined') {
-            document.getElementById('mintButton').addEventListener('click', async function () {
+            document.getElementById('mintButton').addEventListener('click', async function (event) {
+                event.preventDefault(); // Prevent default behavior of the anchor tag
+
                 const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
                 const networkId = await ethereum.request({ method: 'net_version' });
 
@@ -32,4 +34,4 @@ async function initMinting() {
     }
 }
 
-// Note: The initMinting function will be triggered when the "Mint Now" button is clicked.
+// Do not call the asynchronous function here
