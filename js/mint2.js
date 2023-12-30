@@ -34,4 +34,5 @@ async function initMinting() {
     }
 }
 
-// Do not call the asynchronous function here
+// Call the asynchronous function to initiate minting
+initMinting();
