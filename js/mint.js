@@ -68,8 +68,6 @@ async function mintNFT() {
     } else {
       // MetaMask not found
       console.error('MetaMask is not installed.');
-
-      // You can display a message instructing the user to install MetaMask
     }
   } catch (error) {
       console.error('Error:', error);
