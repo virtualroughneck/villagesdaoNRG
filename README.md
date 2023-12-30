@@ -1,2 +1,3 @@
-# villagesdaoNRG
-Energi chain minting of VIllages DAO NFTS
+# Villages DAO NRG
+
+Energi chain minting of Villages DAO NFTS

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Barapada Page</title>
+    <style>
+        body {
+            background-color: #0f101c;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        img {
+            width: 100%;
+            max-width: 300px;
+            height: auto;
+            margin-top: 20px;
+        }
+
+        .content {
+            text-align: left;
+            max-width: 600px;
+            margin: 20px 40px;
+        }
+
+        .italic {
+            font-style: italic;
+        }
+
+        /* Container for image and table */
+        .image-table-container {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start; /* Align items to the left */
+            margin-top: 20px; /* Adjust the margin-top value as needed */
+        }
+
+        /* Added gap between image and table */
+        .image-table-container img {
+            margin-right: 20px; /* Adjust the margin-right value for the desired gap */
+        }
+
+        /* Added table styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #1a1c2a; /* Lighter background color for the table */
+            border-radius: 8px; /* Rounded border */
+            overflow: hidden; /* Hide overflowing border radius */
+        }
+
+        table, th, td {
+            border: 1px solid #3f4d6b; /* Border color */
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #2b3143; /* Darker background color for the table header */
+            color: #fff;
+        }
+
+        /* Button styling */
+        .mint-button {
+            display: inline-block;
+            padding: 15px 30px;
+            background-color: limegreen;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .mint-button:hover {
+            background-color: darkgreen;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="content">
+        <div class="image-table-container">
+            <img src="images/barapada.png" alt="Barapada">
+            <table>
+                <tr>
+                    <th>
+                        <span style="font-size: 20px;">50</span>
+                        <img src="images/wal.png" alt="Wal Image" style="width: 18px; height: auto; margin-left: 5px; margin-right: 0px;">
+                        <span style="font-size: 20px;">NRG</span>
+                    </th>
+                </tr>
+                <!-- Added the mint-container class to the containing div -->
+                <tr>
+                    <td class="mint-container">
+                        <a href="#" class="mint-button">Mint Now</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <h1>Barapada</h1>
+        <h2>Description</h2>
+        <p>
+            <img src="images/wal.png" alt="Wal Image" style="width: 30px; height: auto; margin-right: 5px;">
+            <span style="font-size: 20px;">OXOO</span>
+        </p>
+
+        <p>NFTs in this collection provide liquidity to Barapada for the Clean Water Initiative between LavaDAO, CryptoChicks NFT community, and Aerial IoT.</p>
+        <br>
+        <p class="italic">Coming Soon:</p>
+        <p class="italic">Personal accounts from impacted villagers, including a statement from our women leaders who are forerunning operations on the ground.</p>
+        <p class="italic">Stay tuned for updates!</p>
+    </div>
+</body>
+
+</html>
