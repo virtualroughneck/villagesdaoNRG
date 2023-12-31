@@ -10,7 +10,7 @@ async function getProvider() {
     }
   }
   
-  async function getContract() {
+async function getContract() {
     // Replace with the actual contract address
     const contractAddress = '0x0b21b455850dfAE1577A605Efb5F61E093bC8B61';
     const contractABI = [
@@ -44,10 +44,22 @@ async function getProvider() {
       {"type":"function","stateMutability":"nonpayable","outputs":[],"name":"withdrawPayments","inputs":[{"type":"address","name":"payee","internalType":"address payable"}]}
     ];
   
-    const provider = await getProvider();
-    const signer = provider.getSigner();
-    const contract = new window.ethereum.Contract(contractABI, contractAddress, { from: await signer.getAddress() });
-    return contract;
+    // Ensure that the MetaMask provider is available
+    if (window.ethereum) {
+        // Use MetaMask provider directly
+        const provider = window.ethereum;
+
+        // Request account access if needed
+        await provider.request({ method: 'eth_requestAccounts' });
+
+        // Get the signer from the current account
+        const signer = provider.getSigner();
+        const contract = new ethers.Contract(contractAddress, contractABI, signer);
+
+        return contract;
+    } else {
+        throw new Error("Web3Provider is not available. Make sure MetaMask is installed and properly configured.");
+    }
   }
   
   async function mintNFT() {
