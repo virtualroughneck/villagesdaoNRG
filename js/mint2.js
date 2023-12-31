@@ -1,14 +1,14 @@
 async function getProvider() {
     // Ensure that the MetaMask provider is available
     if (window.ethereum) {
-      // Use MetaMask provider
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      await provider.send("eth_requestAccounts", []);
+      // Use MetaMask provider directly
+      const provider = window.ethereum;
+      await provider.request({ method: 'eth_requestAccounts' });
       return provider;
     } else {
       throw new Error("Web3Provider is not available. Make sure MetaMask is installed and properly configured.");
     }
-  }
+  }  
   
   async function mintNFT() {
     try {
