@@ -1,16 +1,4 @@
-async function getProvider() {
-    // Ensure that the MetaMask provider is available
-    if (window.ethereum) {
-      // Use MetaMask provider directly
-      const provider = window.ethereum;
-      await provider.request({ method: 'eth_requestAccounts' });
-      return provider;
-    } else {
-      throw new Error("Web3Provider is not available. Make sure MetaMask is installed and properly configured.");
-    }
-  }  
-  
-  async function mintNFT() {
+async function mintNFT() {
     try {
       // Wait for MetaMask connection
       await ethereum.request({ method: 'eth_requestAccounts' });
@@ -22,14 +10,14 @@ async function getProvider() {
         return;
       }
   
-      const provider = await getProvider();
-      const signer = provider.getSigner();
-      const addressToMint = await signer.getAddress();
+      // Use MetaMask provider directly
+      const provider = ethereum;
+      const signerAddress = (await provider.request({ method: 'eth_accounts' }))[0];
   
       const contract = await getContract();
       const mintPriceInWei = await contract.MINT_PRICE();
   
-      const transactionResponse = await contract.mintTo(addressToMint, {
+      const transactionResponse = await contract.mintTo(signerAddress, {
         gasLimit: 500_000,
         gasPrice: '120000000000', // 120 GWei
         value: mintPriceInWei,
