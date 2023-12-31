@@ -1,74 +1,38 @@
+// Define the mintNFT function for minting logic
 async function mintNFT() {
   try {
-    // Check if MetaMask is installed and connected
-    if (typeof window.ethereum !== 'undefined') {
-      const ethereum = window.ethereum;
-
-      // Request user's permission to access MetaMask
-      ethereum.request({ method: 'eth_requestAccounts' })
-        .then(async function (accounts) {
-          // Check if the current network is Energi
+      // Check if ethereum is available globally
+      if (typeof ethereum !== 'undefined') {
+          const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
           const networkId = await ethereum.request({ method: 'net_version' });
-          if (networkId === '49797') {
-            // The user is connected to the Energi network
-            // You can proceed with minting here
 
-            // Add a counter to keep track of the number of mints
-            const mintCounter = 0;
+          if (networkId === '49797') { // Update with the correct network ID for your Energi testnet
+              const contractAddress = '0x0b21b455850dfAE1577A605Efb5F61E093bC8B61'; // Update with your deployed contract address on Energi
 
-            // Function to increment the mint counter and check if it's reached the limit
-            function incrementMintCounter() {
-              mintCounter++;
-              if (mintCounter >= 1000) {
-                // Disable the "Mint Now" button
-                document.getElementById('mintButton').disabled = true;
-              }
-            }
+              const gasLimit = 50000; // Set your desired gas limit
+              const gasPrice = '20000000000'; // 20 Gwei in Wei
 
-            // Attach a click event handler to the "Mint Now" button
-            document.getElementById('mintButton').addEventListener('click', function () {
-              // Increment the mint counter
-              incrementMintCounter();
-
-              // Construct and sign the minting transaction
               const mintTx = {
-                from: accounts[0], // User's Ethereum address
-                to: '0x0b21b455850dfAE1577A605Efb5F61E093bC8B61', // Your contract address
-                gas: '50000',
-                gasPrice: '20000000000',
+                  from: accounts[0],
+                  to: contractAddress,
+                  gas: gasLimit,
+                  gasPrice: gasPrice,
+                  value: '80000000000000000', // 0.08 ether in Wei
+                  data: '0x3fa4f245', // The function signature of `mintTo(address)` in hexadecimal
               };
 
-              ethereum.request({ method: 'eth_sendTransaction', params: [mintTx] })
-                .then(function (transactionHash) {
-                  // Transaction sent successfully
+              try {
+                  const transactionHash = await ethereum.request({ method: 'eth_sendTransaction', params: [mintTx] });
                   console.log('Transaction Hash:', transactionHash);
-
-                  // You can display a success message or perform other actions here
-                })
-                .catch(function (error) {
-                  // Transaction failed
+              } catch (error) {
                   console.error('Transaction Error:', error);
-
-                  // You can display an error message to the user
-                });
-            });
+              }
           } else {
-            // User is not connected to the Energi network
-            console.error('Please connect to the Energi network in MetaMask.');
-
-            // You can display a message instructing the user to switch networks
+              console.error('Please connect to the Energi testnet in MetaMask.');
           }
-        })
-        .catch(function (error) {
-          // User denied access to MetaMask
-          console.error('User denied access to MetaMask:', error);
-
-          // You can display a message to the user indicating that access is required to proceed
-        });
-    } else {
-      // MetaMask not found
-      console.error('MetaMask is not installed.');
-    }
+      } else {
+          console.error('MetaMask is not installed.');
+      }
   } catch (error) {
       console.error('Error:', error);
   }
