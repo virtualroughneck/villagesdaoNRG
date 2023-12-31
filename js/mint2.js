@@ -45,7 +45,7 @@ async function getProvider() {
       ];
   
       const provider = await getProvider();
-      const contract = new window.ethereum.Contract(contractABI, contractAddress);
+      const contract = new ethers.Contract(contractAddress, contractABI, provider);
       return contract;
     }
     
@@ -61,21 +61,17 @@ async function getProvider() {
           return;
         }
     
-        // Use MetaMask provider directly
-        const provider = ethereum;
-        const signerAddress = (await provider.request({ method: 'eth_accounts' }))[0];
-    
         const contract = await getContract();
-        const mintPriceInWei = await contract.methods.MINT_PRICE().call();
+        const signer = await ethereum.request({ method: 'eth_accounts' });
+        const mintPriceInWei = await contract.MINT_PRICE();
     
-        const transactionResponse = await contract.methods.mintTo(signerAddress).send({
-          from: signerAddress,
-          gas: '500000',
+        const transactionResponse = await contract.mintTo(signer[0], {
+          gasLimit: 500_000,
           gasPrice: '120000000000', // 120 GWei
           value: mintPriceInWei,
         });
     
-        console.log(`Transaction Hash: ${transactionResponse.transactionHash}`);
+        console.log(`Transaction Hash: ${transactionResponse.hash}`);
       } catch (error) {
         console.error('Error:', error);
       }
@@ -83,3 +79,4 @@ async function getProvider() {
     
     // Example usage:
     mintNFT();
+    
