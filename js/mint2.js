@@ -52,8 +52,9 @@ async function getContract() {
         // Request account access if needed
         await provider.request({ method: 'eth_requestAccounts' });
 
-        // Get the signer from the current account
-        const signer = provider.getSigner();
+        // Use the ethers.js library to interact with the contract
+        const ethersProvider = new ethers.providers.Web3Provider(provider);
+        const signer = ethersProvider.getSigner();
         const contract = new ethers.Contract(contractAddress, contractABI, signer);
 
         return contract;
