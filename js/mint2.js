@@ -77,6 +77,7 @@ async function getContract() {
         console.error('Error initializing contract:', error);
         throw error;
     }
+  }
   
   async function mintNFT() {
     try {
