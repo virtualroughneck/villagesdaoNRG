@@ -48,7 +48,8 @@ async function getContract() {
     if (window.ethereum) {
         // Use MetaMask provider directly
         const provider = await getProvider();
-        const signer = provider.getSigner();
+        const ethersProvider = new ethers.providers.Web3Provider(provider);
+        const signer = ethersProvider.getSigner();
         const contract = new ethers.Contract(contractAddress, contractABI, signer);
 
         return contract;
