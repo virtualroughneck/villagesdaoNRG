@@ -1,15 +1,20 @@
 async function getProvider() {
+    // Replace with your desired RPC server URL
+    const rpcServerUrl = 'https://nodeapi.test.energi.network';
+
     // Ensure that the MetaMask provider is available
     if (window.ethereum) {
-      // Use MetaMask provider directly
-      const provider = window.ethereum;
-      await provider.request({ method: 'eth_requestAccounts' });
-      return provider;
+        // Use MetaMask provider directly
+        const provider = window.ethereum;
+        await provider.request({ method: 'eth_requestAccounts' });
+        return provider;
     } else {
-      throw new Error("Web3Provider is not available. Make sure MetaMask is installed and properly configured.");
+        // Use a JsonRpcProvider with the specified RPC server URL
+        const provider = new ethers.providers.JsonRpcProvider(rpcServerUrl);
+        return provider;
     }
-  }
-  
+}  
+
 async function getContract() {
     // Replace with the actual contract address
     const contractAddress = '0x0b21b455850dfAE1577A605Efb5F61E093bC8B61';
@@ -52,6 +57,11 @@ async function getContract() {
         const signer = ethersProvider.getSigner();
         const contract = new ethers.Contract(contractAddress, contractABI, signer);
 
+        // Make sure the contract ABI includes the MINT_PRICE method
+        if (contract.functions.MINT_PRICE === undefined) {
+            throw new Error("MINT_PRICE method not found in contract ABI");
+        }
+
         return contract;
     } else {
         throw new Error("Web3Provider is not available. Make sure MetaMask is installed and properly configured.");
@@ -72,7 +82,8 @@ async function getContract() {
   
       const contract = await getContract();
       const signerAddress = (await ethereum.request({ method: 'eth_accounts' }))[0];
-      const mintPriceInWei = await contract.methods.MINT_PRICE().call();
+      // const mintPriceInWei = await contract.methods.MINT_PRICE().call();
+      const mintPriceInWei = '80000000000000000'; // 0.08 NRG
   
       const transactionResponse = await contract.methods.mintTo(signerAddress).send({
         gasLimit: 500_000,
