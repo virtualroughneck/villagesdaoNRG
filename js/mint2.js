@@ -95,7 +95,6 @@ async function getContract() {
       const signerAddress = (await ethereum.request({ method: 'eth_accounts' }))[0];
       // const mintPriceInWei = await contract.methods.MINT_PRICE().call();
       const mintPriceInWei = '80000000000000000'; // 0.08 NRG
-      console.log(`Signer Address: ${signerAddress}`)
   
       const transactionResponse = await contract.methods.mintTo(signerAddress).send({
         gasLimit: 500_000,
