@@ -48,25 +48,35 @@ async function getContract() {
       {"type":"function","stateMutability":"nonpayable","outputs":[],"name":"transferOwnership","inputs":[{"type":"address","name":"newOwner","internalType":"address"}]},
       {"type":"function","stateMutability":"nonpayable","outputs":[],"name":"withdrawPayments","inputs":[{"type":"address","name":"payee","internalType":"address payable"}]}
     ];
-  
-    // Ensure that the MetaMask provider is available
-    if (window.ethereum) {
-        // Use MetaMask provider directly
-        const provider = await getProvider();
-        const ethersProvider = new ethers.providers.Web3Provider(provider);
-        const signer = ethersProvider.getSigner();
-        const contract = new ethers.Contract(contractAddress, contractABI, signer);
 
-        // Make sure the contract ABI includes the MINT_PRICE method
-        if (contract.functions.MINT_PRICE === undefined) {
-            throw new Error("MINT_PRICE method not found in contract ABI");
+    try {
+        // Ensure that the MetaMask provider is available
+        if (window.ethereum) {
+            // Use MetaMask provider directly
+            const provider = window.ethereum;
+
+            // Request account access if needed
+            await provider.request({ method: 'eth_requestAccounts' });
+
+            // Get the signer from the current account
+            const signer = provider.getSigner();
+
+            // Create a Contract instance with the signer
+            const contract = new ethers.Contract(contractAddress, contractABI, signer);
+
+            // Check if the contract has the 'mintTo' function
+            if (contract.mintTo) {
+                return contract;
+            } else {
+                throw new Error('The contract does not have a "mintTo" function.');
+            }
+        } else {
+            throw new Error('Web3Provider is not available. Make sure MetaMask is installed and properly configured.');
         }
-
-        return contract;
-    } else {
-        throw new Error("Web3Provider is not available. Make sure MetaMask is installed and properly configured.");
+    } catch (error) {
+        console.error('Error initializing contract:', error);
+        throw error;
     }
-  }
   
   async function mintNFT() {
     try {
@@ -84,6 +94,7 @@ async function getContract() {
       const signerAddress = (await ethereum.request({ method: 'eth_accounts' }))[0];
       // const mintPriceInWei = await contract.methods.MINT_PRICE().call();
       const mintPriceInWei = '80000000000000000'; // 0.08 NRG
+      console.log(`Signer Address: ${signerAddress}`)
   
       const transactionResponse = await contract.methods.mintTo(signerAddress).send({
         gasLimit: 500_000,
