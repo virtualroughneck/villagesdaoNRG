@@ -47,14 +47,8 @@ async function getContract() {
     // Ensure that the MetaMask provider is available
     if (window.ethereum) {
         // Use MetaMask provider directly
-        const provider = window.ethereum;
-
-        // Request account access if needed
-        await provider.request({ method: 'eth_requestAccounts' });
-
-        // Use the ethers.js library to interact with the contract
-        const ethersProvider = new ethers.providers.Web3Provider(provider);
-        const signer = ethersProvider.getSigner();
+        const provider = await getProvider();
+        const signer = provider.getSigner();
         const contract = new ethers.Contract(contractAddress, contractABI, signer);
 
         return contract;
